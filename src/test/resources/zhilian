@@ -1,0 +1,6 @@
+frame .search-result-tab 
+jobTitle td.Jobname > a
+companyName td.Companyname > a
+jobsite td.Companyaddress
+publishTime td.releasetime
+details td.tabCol1 > span

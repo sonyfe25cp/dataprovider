@@ -1,0 +1,7 @@
+dataprovider
+
+1.HtmlExpression
+frame 为重复部分的选择值
+其他均为
+name value
+	如果是eq(2)这种 则会自动转换

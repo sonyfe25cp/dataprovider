@@ -1,0 +1,5 @@
+frame .terminalpage
+jobTitle .terminalpage-left-top h1
+company .terminalpage-left-top h2
+publishDate #span4freshdate
+details .top-left tbody:eq(2)

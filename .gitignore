@@ -1,4 +1,7 @@
 *.class
+target/
+.settings/
+src/test/resources/pages/
 
 # Package Files #
 *.jar
