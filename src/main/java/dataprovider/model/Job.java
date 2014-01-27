@@ -16,6 +16,7 @@ public class Job {
 	
 	private String publishTime;
 	private String jobSite;
+	private String url;
 	
 	
 	public static List<Job> fromList(List<Map<String, String>> list){
@@ -33,6 +34,7 @@ public class Job {
 		String details = map.get("details");
 		String publishTime = map.get("publishTime");
 		String jobSite = map.get("jobSite");
+		String url = map.get("url");
 
 		Job job = new Job();
 		job.setCompany(company);
@@ -40,6 +42,7 @@ public class Job {
 		job.setDetails(details);
 		job.setPublishTime(publishTime);
 		job.setJobSite(jobSite);
+		job.setUrl(url);
 		return job;
 	}
 	
@@ -100,4 +103,13 @@ public class Job {
 	public void setJobSite(String jobSite) {
 		this.jobSite = jobSite;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 }

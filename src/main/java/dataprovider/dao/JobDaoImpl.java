@@ -30,6 +30,7 @@ public class JobDaoImpl {
 				psmt.setString(3, job.getPublishTime());
 				psmt.setString(4, job.getJobSite());
 				psmt.setString(5, job.getDetails());
+				psmt.setString(6, job.getUrl());
 				psmt.addBatch();
 			}
 			psmt.executeBatch();
@@ -40,7 +41,7 @@ public class JobDaoImpl {
 		}
 	}
 	
-	static String INSERTJOB = "insert into jobs(title, company, publishTime, jobsite, details) values(?,?,?,?,?)";
+	static String INSERTJOB = "insert into jobs(title, company, publishTime, jobsite, details, url) values(?,?,?,?,?,?)";
 	public void insert(Job job){
 		try {
 			PreparedStatement psmt = conn.prepareStatement(INSERTJOB);

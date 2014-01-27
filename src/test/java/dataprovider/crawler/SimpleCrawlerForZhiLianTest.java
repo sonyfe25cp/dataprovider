@@ -1,8 +1,10 @@
 package dataprovider.crawler;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
-public class SimpleCrawlerForZhiLianTest {
+public class SimpleCrawlerForZhiLianTest extends TestCase{
 
 	@Test
 	public void test() {

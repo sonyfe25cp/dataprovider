@@ -26,7 +26,6 @@ public class HtmlParserWithJsoup {
 	public HtmlParserWithJsoup(String file){
 		this.filePath = file;
 		expressions = HtmlExpression.readFromFile(filePath);
-		valueList = new ArrayList<Map<String, String>>();
 	}
 	public void parseFromContent(String content){
 		Document doc = Jsoup.parse(content);
@@ -51,7 +50,7 @@ public class HtmlParserWithJsoup {
 		}
 	}
 	private void parse(Document doc){
-		
+		valueList = new ArrayList<Map<String, String>>();
 		Elements tables = doc.select(expressions.getFrame());
 		for(Element table : tables){
 			Map<String, String> valueMap = new HashMap<String, String>();

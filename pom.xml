@@ -28,7 +28,16 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.21</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10-beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.bit.dlde</groupId>
+			<artifactId>wks_pages_reader</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 </project>
