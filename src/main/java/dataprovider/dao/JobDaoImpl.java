@@ -17,31 +17,36 @@ public class JobDaoImpl {
 	}
 	
 	public void batchInsert(List<Job> jobs){
-		try {
-			if(conn == null || conn.isClosed()){
-				conn = DBSource.getConnection();
+		if(jobs!=null && jobs.size() > 0){
+			try {
+				if(conn == null || conn.isClosed()){
+					conn = DBSource.getConnection();
+				}
+				conn.setAutoCommit(false);
+				PreparedStatement psmt = conn.prepareStatement(INSERTJOB,
+						ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				for (Job job : jobs) {
+					psmt.setString(1, job.getTitle());
+					psmt.setString(2, job.getCompany());
+					psmt.setString(3, job.getPublishTime());
+					psmt.setString(4, job.getJobSite());
+					psmt.setString(5, job.getDetails());
+					psmt.setString(6, job.getUrl());
+					psmt.setString(7, job.getDescription());
+					psmt.addBatch();
+				}
+				psmt.executeBatch();
+				conn.commit();
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			conn.setAutoCommit(false);
-			PreparedStatement psmt = conn.prepareStatement(INSERTJOB,
-					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			for (Job job : jobs) {
-				psmt.setString(1, job.getTitle());
-				psmt.setString(2, job.getCompany());
-				psmt.setString(3, job.getPublishTime());
-				psmt.setString(4, job.getJobSite());
-				psmt.setString(5, job.getDetails());
-				psmt.setString(6, job.getUrl());
-				psmt.addBatch();
-			}
-			psmt.executeBatch();
-			conn.commit();
-			conn.setAutoCommit(true);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}else{
+			System.out.println("本次没有任何更新操作.");
 		}
 	}
 	
-	static String INSERTJOB = "insert into jobs(title, company, publishTime, jobsite, details, url) values(?,?,?,?,?,?)";
+	static String INSERTJOB = "insert into jobs(title, company, publishTime, jobsite, details, url, description) values(?,?,?,?,?,?,?)";
 	public void insert(Job job){
 		try {
 			PreparedStatement psmt = conn.prepareStatement(INSERTJOB);

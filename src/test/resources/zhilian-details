@@ -3,3 +3,4 @@ title .terminalpage-left-top h1
 company .terminalpage-left-top h2
 publishTime #span4freshdate
 details .top-left tbody:eq(2)
+description .terminalpage-content

@@ -9,7 +9,8 @@ public class Job {
 	private int id;
 	private String company;
 	private String title;
-	private String details;
+	private String details;//职位细节 包括级别、经验等等
+	private String description;//职位描述
 
 	private String degree;
 	private String experience;
@@ -35,6 +36,7 @@ public class Job {
 		String publishTime = map.get("publishTime");
 		String jobSite = map.get("jobSite");
 		String url = map.get("url");
+		String description = map.get("description");
 
 		Job job = new Job();
 		job.setCompany(company);
@@ -43,6 +45,7 @@ public class Job {
 		job.setPublishTime(publishTime);
 		job.setJobSite(jobSite);
 		job.setUrl(url);
+		job.setDescription(description==null?"":description);
 		return job;
 	}
 	
@@ -110,6 +113,14 @@ public class Job {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }
