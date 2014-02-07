@@ -2,9 +2,25 @@ package dataprovider.parser;
 
 import org.junit.Test;
 
-import dataprovider.parser.HtmlParserWithJsoup;
+import dataprovider.parser.job.ContentParserFor51;
 
 public class HtmlParserWithJsoupTest {
+	
+	@Test
+	public void testParseCVFrom51(){
+		String html = "/Users/omar/data/sh/01/3621401.html";
+		ContentParserFor51 hpwj = new ContentParserFor51();
+		hpwj.parseFromFile(html, "UTF-8");
+		String json = hpwj.outputJson();
+		System.out.println(json);
+		
+		String html2 = "/Users/omar/data/sz/03/5964703.html";
+		ContentParserFor51 hpwj2 = new ContentParserFor51();
+		hpwj2.parseFromFile(html2, "UTF-8");
+		String json2 = hpwj2.outputJson();
+		System.out.println(json2);
+	}
+	
 	
 	@Test
 	public void testParseDetails(){
