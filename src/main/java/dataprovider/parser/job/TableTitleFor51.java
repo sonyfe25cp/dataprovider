@@ -8,8 +8,13 @@ public enum TableTitleFor51 {
 	SelfEvaluation, // 自我评价
 	DesiredPosition, // 求职意向
 	WorkExpriences, // 工作经验
+	SocietyExpriences, // 社会经验
+	Scores, //所获奖项
+	Papers, // 证书
+	ITSkills, // IT技能
 	Education, // 教育经历
 	TrainExpriences, // 培训经历
 	ProjectExpriences, // 项目经历
-	Language; //语言能力
+	Language, //语言能力
+	Others; // 其他信息
 }
