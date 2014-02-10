@@ -16,10 +16,14 @@ public class HtmlParserWithJsoupTest {
 	}
 	private static void batchParse(File folder){
 		ContentParserFor51 hpwj = new ContentParserFor51();
+		hpwj.setGarbagePath("/Users/omar/data/error_cv");
 		for(File file : folder.listFiles()){
 			if(file.isDirectory()){
 				batchParse(file);
 			}else if(file.isFile()){
+				if(!file.getName().endsWith("html")){
+					continue;
+				}
 				hpwj.parseFromFile(file, "UTF-8");
 				String json = hpwj.outputJson();
 				System.out.println(json);
@@ -28,7 +32,7 @@ public class HtmlParserWithJsoupTest {
 	}
 	@Test
 	public void testParseFrom51ForBugFree(){
-		String html3 = "/Users/omar/data/sh/06/88763706.html";
+		String html3 = "/Users/omar/Downloads/85619495.html";
 		ContentParserFor51 hpwj3 = new ContentParserFor51();
 		hpwj3.parseFromFilePath(html3, "UTF-8");
 		String json3 = hpwj3.outputJson();

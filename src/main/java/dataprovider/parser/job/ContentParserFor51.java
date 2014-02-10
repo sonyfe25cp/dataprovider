@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import dataprovider.exception.SomethingUnknownException;
 import dataprovider.parser.HtmlParserBasedJsoup;
 
 public class ContentParserFor51 extends HtmlParserBasedJsoup{
@@ -87,10 +88,10 @@ public class ContentParserFor51 extends HtmlParserBasedJsoup{
 						tablesWithLabel.put(TableTitleFor51.ITSkills, table);
 					}else{
 //						throw new SomethingUnknownException();
-						System.out.println("没探测出来这是啥内容....=.=");
-						System.out.println("************************");
-						System.out.println(text);
-						System.out.println("************************");
+//						System.out.println("没探测出来这是啥内容....=.=");
+//						System.out.println("************************");
+//						System.out.println(text);
+//						System.out.println("************************");
 					}
 				}
 			}
@@ -118,6 +119,9 @@ public class ContentParserFor51 extends HtmlParserBasedJsoup{
 				jsonArray.add(json("婚姻状况",tmp));
 			}else if(tmp.contains("cm")){
 				jsonArray.add(json("身高",tmp));
+			}else if(tmp.contains("ID:")){
+				String id = tmp.substring(tmp.lastIndexOf(":")+1, tmp.lastIndexOf("")-1);
+				partJsons.add(json("id", id));
 			}
 		}
 		Element otherTr = trs.get(1);
@@ -604,7 +608,50 @@ public class ContentParserFor51 extends HtmlParserBasedJsoup{
 				}
 			}
 		}
+		detectIdOrNameFromCV(root);
 		return tables;
+	}
+	/**
+	 * 有头的探测出名字，无头的探测出id
+	 */
+	private void detectIdOrNameFromCV(Elements root){
+		Element select1 = root.select("table").first();
+		if(select1 == null){
+			throw new SomethingUnknownException();
+		}
+		Elements select2 = select1.select("table[width=97%]");
+		String idValue = "";
+		String nameValue = "";
+		for(Element table : select2){
+			if(idValue.length() !=0 || nameValue.length() != 0){
+				break;
+			}
+			Element tr = table.select("table>tbody>tr").first();
+			if(tr == null){
+				continue;
+			}
+			Elements spans = tr.select("span");
+			for(Element span : spans){
+					Elements bs = span.select("b");
+					if(bs.size() != 1){
+						continue;
+					}
+					String text = bs.text();
+					if(text.trim().length() == 0 || text.trim().contains("标签")){
+						continue;
+					}
+					if(text.contains(":")){
+						String[] ids = text.split(":");
+						if(ids.length == 2){
+							idValue = ids[1];
+							partJsons.add(json("id", idValue));
+						}
+					}else{
+						nameValue = text;
+						partJsons.add(json("name", nameValue));
+					}
+			}
+		}
 	}
 	@Override
 	public String outputJson() {
@@ -619,9 +666,16 @@ public class ContentParserFor51 extends HtmlParserBasedJsoup{
 			}
 		}
 		sb.append("}");
+		String json = sb.toString();
+		if(json.length() < 20){
+			throw new SomethingUnknownException();
+		}
 		return sb.toString();
 	}
 	private String json(String name, String value){
+		if(value.contains("\"")){
+			value.replaceAll("\"", "\\\"");
+		}
 		return "\""+name+"\":\""+value+"\"";
 	}
 	private String json(List<List<String>> array, String name){
