@@ -38,6 +38,11 @@
 			<artifactId>wks_pages_reader</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency> <!-- Spark dependency -->
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.10</artifactId>
+			<version>0.9.0-incubating</version>
+		</dependency>
 	</dependencies>
 
 </project>
