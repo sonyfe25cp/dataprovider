@@ -24,7 +24,7 @@ public class BloomFilterUtils {
       		oos.writeObject(bf);
       		oos.close();
       		fos.close();
-      		System.out.println("bloomFilter serialize successfully!!!");
+      		System.out.println("bloomFilter 序列化成功!!!");
       	} catch (IOException e) {
       		e.printStackTrace();
       	}
@@ -47,7 +47,8 @@ public class BloomFilterUtils {
 		try {
 			fis = new FileInputStream(bloomPath);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.err.print("没有找到Bloomfilter,程序退出");
+			System.exit(0);
 		}
 
 		ObjectInputStream ois = null;
